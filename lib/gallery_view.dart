@@ -11,7 +11,7 @@ class GalleryPhotoViewWrapper extends StatefulWidget {
     this.minScale,
     this.maxScale,
     required this.initialIndex,
-    required this.photoItems,
+    required this.photoItemsPath,
     this.scrollDirection = Axis.horizontal,
   }) : pageController = PageController(initialPage: initialIndex), super(key: key);
 
@@ -20,7 +20,7 @@ class GalleryPhotoViewWrapper extends StatefulWidget {
   final dynamic maxScale;
   final int initialIndex;
   final PageController pageController;
-  final List<String> photoItems;
+  final List<String> photoItemsPath;
   final Axis scrollDirection;
 
   @override
@@ -58,7 +58,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
             PhotoViewGallery.builder(
               builder: _buildPhoto,
               scrollPhysics: const BouncingScrollPhysics(),
-              itemCount: widget.photoItems.length,
+              itemCount: widget.photoItemsPath.length,
               backgroundDecoration: widget.backgroundDecoration,
               pageController: widget.pageController,
               onPageChanged: onPageChanged,
@@ -67,7 +67,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
             Container(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                File(widget.photoItems[currentIndex]).path.split('/').last,
+                File(widget.photoItemsPath[currentIndex]).path.split('/').last,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 17.0,
@@ -92,7 +92,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
   }
 
   PhotoViewGalleryPageOptions _buildPhoto(BuildContext context, int index) {
-    final String item = widget.photoItems[index];
+    final String item = widget.photoItemsPath[index];
     return PhotoViewGalleryPageOptions.customChild(
       child: SizedBox(
         width: 300,
